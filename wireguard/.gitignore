@@ -1,0 +1,21 @@
+**/.terraform/*
+
+# Ignore variables files
+*.auto.tfvars
+
+# Ignore override files
+*.tfoverride
+
+# Ignore environment-specific files
+.envrc
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Ignore wireguard configuration
+wg-*.conf
+
+terraform.*
+terraform.tfstate.backup
+terraform.tfstate

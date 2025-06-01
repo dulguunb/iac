@@ -1,0 +1,26 @@
+# This file is maintained automatically by "terraform init".
+# Manual edits may be lost in future updates.
+
+provider "registry.terraform.io/vultr/vultr" {
+  version     = "2.13.0"
+  constraints = "2.13.0"
+  hashes = [
+    "h1:FwDKu06stXv53dcyoFUovaN8tFlAzRVvcN4Xwj6zzms=",
+    "zh:1b0a69de13a49541782bfee4f47875e2ca85d2298d3bf53f2c4de221c2311e9b",
+    "zh:2809bbcb0d80c71a64ad4b70d7a86930c03e557e8a6928599d8e199d0336fd56",
+    "zh:5452deb9f98c12c5e76d8c28e74c3865c64803f9fe7c7eb3a74e0e0755f8aa9c",
+    "zh:5a1f7bfe3d2a6ec289318523920a24421098d526047cf469b24d0bd349926186",
+    "zh:64d43be9232cb5d4c92542a1c714a55cfbd61ec21539b26e502a3e32c3f101e1",
+    "zh:6f242d4d98f06bc4ae11302126f252f5e72d0a68a7f2f0c8617f9b71eda3037d",
+    "zh:8ec6e1d82f7633c8afb0308266bbbae485be96d022901c9896292f8c7026618f",
+    "zh:9547459ac3f9b2e6a910f4d671bab5a69d59828d1efe2a2545b81a9a4d8c29da",
+    "zh:9a243e8a12290ca91f334d8343261c3840ac4577f7b23de21d299ffbff8b40d9",
+    "zh:cc3a8af73f810fd29e65e0a7c91e7c7ba11f4ff3bf0f2eb2e2ae207b6b783a7b",
+    "zh:d0211c9566701ee888ade6cf9c211d47f1416073d79777c153450130717c8e9c",
+    "zh:d680d716148758ddc9845e6a61da6cf5f68e4dd6e592caafda7431549d9e1d5c",
+    "zh:d76bfeede126c63e2d332fc73a7a90d9c15ad0d5927edc32bfc22b1c38b04f65",
+    "zh:d8a09f5fa50e8ff0f53e933faa50621819fa83a8f58f97730b3340fa366a3c3c",
+    "zh:e4ec976ebb2e7150a91b402851d2fcf21323cfd44c04a0a4cb7a0728d88988cc",
+    "zh:ed973050208a632fb506f9279f9a9266f41543874502c94fb17b4fd92ca35889",
+  ]
+}
