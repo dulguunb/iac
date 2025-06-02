@@ -1,6 +1,6 @@
 variable "ssh_public_key" {
   type    = string
-  default = "SSH_PUBLIC_KEY"
+  default = ""
 }
 
 variable "region" {
@@ -9,5 +9,5 @@ variable "region" {
 }
 variable "vultr_api_key"{
   type = string
-  default = "<VULTR_API_KEY>"
+  default = ""
 }

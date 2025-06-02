@@ -1,13 +1,16 @@
 #!/bin/bash
 set -e
+
+SSH_KEY_PATH=$HOME/vpn_key
+if [[ ! -e "$SSH_KEY_PATH/id" ]]; then
+    mkdir -p $SSH_KEY_PATH
+    echo $SSH_KEY_PATH/id | ssh-keygen -t ed25519
+fi 
+
+export TF_VAR_ssh_public_key=$(cat $SSH_KEY_PATH/id.pub)
 terraform init
 terraform plan
 terraform apply -auto-approve
-
-SSH_KEY_PATH=$1
-if [[ $SSH_KEY_PATH == "" ]] then
-    SSH_KEY_PATH=~/.ssh/new_key/id_ed25519
-fi
 
 VPN_IP=$(terraform output -raw vpn_ip)
 echo $VPN_IP
@@ -46,7 +49,7 @@ cat <<EOF > wg-client.conf
 [Interface]
 PrivateKey = $CLIENT_PRIVATE_KEY
 Address = 10.8.0.2/24, fd86:ea04:1111::2/64
-DNS = 185.228.168.9 # Change this at some point to the 10.8.0.1:53 -> dnsmasque
+DNS = 10.8.0.1
 MTU = 1280
 
 [Peer]
@@ -61,10 +64,11 @@ EOF
 
 echo $SSH_KEY_PATH
 # set up the wg0
-scp -i $SSH_KEY_PATH wg-server.conf root@$VPN_IP:/etc/wireguard/wg0.conf
-ssh -i $SSH_KEY_PATH root@$VPN_IP 'wg-quick up wg0'
-ssh -i $SSH_KEY_PATH root@$VPN_IP 'ufw route allow in on wg0 out on enp1s0'
+rsync  -Pav -e "ssh -i $SSH_KEY_PATH/id" wg-server.conf root@$VPN_IP:/etc/wireguard/wg0.conf
+ssh -i $SSH_KEY_PATH/id root@$VPN_IP 'wg-quick up wg0'
+ssh -i $SSH_KEY_PATH/id root@$VPN_IP 'ufw route allow in on wg0 out on enp1s0'
 # disable the global ssh afterwards
-ssh -i $SSH_KEY_PATH root@$VPN_IP 'ufw allow from 10.8.0.1/24 to any port 22 proto tcp'
-ssh -i $SSH_KEY_PATH root@$VPN_IP 'ufw delete allow 22/tcp'
+ssh -i $SSH_KEY_PATH/id root@$VPN_IP 'ufw allow from 10.8.0.1/24 to any port 22 proto tcp'
+ssh -i $SSH_KEY_PATH/id root@$VPN_IP 'ufw delete allow 22/tcp'
+
 qrencode -t png -o user-qr.png -r wg-client.conf

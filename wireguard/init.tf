@@ -25,14 +25,21 @@ resource "vultr_instance" "my_cheap_instance" {
   user_data = <<-EOF
     #cloud-config
     runcmd:
-      - apt install wireguard
-      - apt install wireguard-tools
+      - sudo apt install -y wireguard
+      - sudo apt install -y wireguard-tools
       - echo net.ipv4.ip_forward=1 > /etc/sysctl.conf
       - echo net.ipv6.conf.all.forwarding=1 >> /etc/sysctl.conf
       - sudo sysctl -p
       - sudo ufw allow 51820/udp
       - sudo ufw disable
       - sudo ufw enable
+      - sudo apt install -y dnsmasq
+      - echo listen-address=127.0.0.1,10.8.0.1  >> /etc/dnsmasq.conf
+      - echo bind-interfaces >> /etc/dnsmasq.conf
+      - echo server=1.1.1.1 >> /etc/dnsmasq.conf
+      - ufw allow from 10.8.0.0/24 to any port 53 proto tcp
+      - ufw allow from 10.8.0.0/24 to any port 53 proto udp
+      - systemctl restart dnsmasq
   EOF
   ssh_key_ids = [vultr_ssh_key.example.id]
 }

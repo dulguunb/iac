@@ -18,4 +18,4 @@ wg-*.conf
 
 terraform.*
 terraform.tfstate.backup
-terraform.tfstate
+terraform.tfstates
